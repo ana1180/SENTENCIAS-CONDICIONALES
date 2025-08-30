@@ -1,0 +1,40 @@
+import math
+
+def bsa(altura_cm, peso_kg):
+    # Fórmula de Mosteller: BSA = sqrt((altura_cm * peso_kg) / 3600)
+    return math.sqrt((altura_cm * peso_kg) / 3600)
+
+def peso_desde_bsa(altura_cm, bsa_valor):
+    # Despeje: peso_kg = (BSA^2 * 3600) / altura_cm
+    return (bsa_valor ** 2) * 3600 / altura_cm
+
+def clasificar_bsa(bsa_valor):
+    if bsa_valor <= 1.5:
+        return "Bajo"
+    elif bsa_valor <= 2.0:
+        return "Normal"
+    else:
+        return "Alto"
+
+if name == "main":
+    altura = float(input("Altura (cm): "))
+    peso = float(input("Peso (kg): "))
+
+    area = bsa(altura, peso)
+    print(f"\nBSA estimada: {area:.2f} m²")
+    print("Categoría:", clasificar_bsa(area))
+
+    # Rango de peso para que la BSA sea NORMAL (1.5–2.0 m²)
+    peso_min_normal = peso_desde_bsa(altura, 1.5)
+    peso_max_normal = peso_desde_bsa(altura, 2.0)
+
+    print(f"\nPara que su BSA sea NORMAL (1.5–2.0 m²),")
+    print(f"su peso debería estar entre {peso_min_normal:.2f} kg y {peso_max_normal:.2f} kg para su estatura.")
+
+    # Comentario opcional según el peso actual
+    if peso < peso_min_normal:
+        print("Actualmente está por debajo del rango de peso normal para su estatura.")
+    elif peso > peso_max_normal:
+        print("Actualmente está por encima del rango de peso normal para su estatura.")
+    else:
+        print("Actualmente está dentro del rango de peso normal para su estatura.")
