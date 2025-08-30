@@ -1,0 +1,79 @@
+import math
+
+
+def bsa(altura_cm, peso_kg):
+    return math.sqrt((altura_cm * peso_kg) / 3600)
+
+
+alturas = []
+pesos = []
+bsas = []
+categorias = []
+peso_min_normales = []
+peso_max_normales = []
+
+
+# Contadores por categoría
+c_bajo = 0
+c_normal = 0
+c_alto = 0
+
+
+n = int(input("Numero de personas: "))
+i = 0
+
+
+while i < n:
+    print("\nPersona", i + 1)
+    h = float(input("Altura (cm): "))
+    w = float(input("Peso (kg): "))
+
+
+    alturas.append(h)
+    pesos.append(w)
+
+
+    area = bsa(h, w)
+    bsas.append(area)
+
+
+    if area <= 1.5:
+        categorias.append("Bajo")
+        c_bajo = c_bajo + 1
+    elif area <= 2.0:
+        categorias.append("Normal")
+        c_normal = c_normal + 1
+    else:
+        categorias.append("Alto")
+        c_alto = c_alto + 1
+
+
+    # Rango de peso para BSA normal (1.5, 2.0]
+    pmin = (1.5 * 1.5) * 3600 / h
+    pmax = (2.0 * 2.0) * 3600 / h
+    peso_min_normales.append(pmin)
+    peso_max_normales.append(pmax)
+
+
+    i = i + 1
+
+
+print("\nResultados:")
+j = 0
+while j < n:
+    print("\nPersona", j + 1)
+    print("Altura:", alturas[j], "cm")
+    print("Peso:", pesos[j], "kg")
+    print("BSA:", bsas[j], "m2", categorias[j])
+    print("Peso para BSA normal: >", peso_min_normales[j], "kg y <=", peso_max_normales[j], "kg")
+    j = j + 1
+
+
+# Porcentajes por categoría
+print("\nPorcentajes por categoría:")
+if n > 0:
+    print("Bajo:", (c_bajo * 100) / n, "%")
+    print("Normal:", (c_normal * 100) / n, "%")
+    print("Alto:", (c_alto * 100) / n, "%")
+else:
+    print("No hay personas para calcular porcentajes.")
